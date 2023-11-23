@@ -17,4 +17,6 @@ def Nameextraction():
     president_list_sorted_nodupe = list(dict.fromkeys(president_list_sorted))
     print(president_list_sorted_nodupe)
 
+
+
 Nameextraction()
