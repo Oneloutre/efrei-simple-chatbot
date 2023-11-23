@@ -37,6 +37,7 @@ def Nameextraction():
 def remove_punct(c):
     line = c
     line = line.replace("'"," ")
+    line = line.replace(","," ")
     line = line.translate(str.maketrans(' ',' ',string.punctuation))
     line = line.replace("  "," ")
     return line
@@ -56,7 +57,7 @@ def cleaning_the_texts(presidentfoldername,cleanedfoldername,presidentfolderdire
                 reading_before_cleaning = before_cleaning.readlines()
                 for i in reading_before_cleaning:
                     cleaned_text = i.lower()
-                    cleaned_text = cleaned_text.replace("\n",'')
+                    cleaned_text = cleaned_text.replace("\n",' ')
                     cleaned_text = remove_punct(cleaned_text)
                     after_cleaning.write(cleaned_text)
         before_cleaning.close()
