@@ -36,6 +36,7 @@ def Nameextraction():
 
 def remove_punct(c):
     line = c
+    line = line.replace("'"," ")
     line = line.translate(str.maketrans(' ',' ',string.punctuation))
     line = line.replace("  "," ")
     return line
