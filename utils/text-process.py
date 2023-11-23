@@ -13,6 +13,14 @@ def Nameextraction():
         if "Mitterrand" in president_name:
             MitterandCount += 1
             president_name = "François Mitterrand" + str(MitterandCount)
+        if "Chirac" in president_name:
+            president_name = "Jacques Chirac"
+        if "Sarkozy" in president_name:
+            president_name = "Nicolas Sarkozy"
+        if "Hollande" in president_name:
+            president_name = "François Hollande"
+        if "Macron" in president_name:
+            president_name = "Emmanuel Macron"
         president_list.append(president_name)
     print(president_list)
 
