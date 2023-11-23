@@ -2,27 +2,32 @@ import os
 
 file_list = []
 president_list = []
+president_list_sorted = []
+president_list_sorted_nodupe = []
 def Nameextraction():
-    MitterandCount = 0
     for files in os.listdir('../speeches 2023/'):
         file_list.append(files)
     for i in range(len(file_list)):
         president_name = file_list[i].replace('Nomination_','').replace('.txt','')
-        if "Giscard dEstaing" in president_name:
-            president_name = "Valéry Giscard d'Estaing"
-        if "Mitterrand" in president_name:
-            MitterandCount += 1
-            president_name = "François Mitterrand" + str(MitterandCount)
-        if "Chirac" in president_name:
-            president_name = "Jacques Chirac"
-        if "Sarkozy" in president_name:
-            president_name = "Nicolas Sarkozy"
-        if "Hollande" in president_name:
-            president_name = "François Hollande"
-        if "Macron" in president_name:
-            president_name = "Emmanuel Macron"
         president_list.append(president_name)
-    print(president_list)
+    for i in president_list:
+        i = ''.join(filter(lambda z: not z.isdigit(), i))
+        if "Chirac" in i:
+            i = "Jacques Chirac"
+        if "Sarkozy" in i:
+            i = "Nicolas Sarkozy"
+        if "Hollande" in i:
+            i = "François Hollande"
+        if "Macron" in i:
+            i = "Emmanuel Macron"
+        if "Mitterrand" in i:
+            i = "François Mitterrand"
+        if "Giscard" in i:
+            i = "Valéry Giscard d'Estaing"
+        president_list_sorted.append(i)
+    president_list_sorted_nodupe = list(dict.fromkeys(president_list_sorted))
+    print(president_list_sorted_nodupe)
+
 
 
 Nameextraction()
