@@ -3,14 +3,14 @@ import string
 
 president_folder_name = 'speeches 2023'
 the_cleaned_folder_name = 'Cleaned'
-president_folder_directory = f'../{president_folder_name}'
-the_cleaned_folder_directory = f'../{the_cleaned_folder_name}'
+president_folder_directory = f'./{president_folder_name}'
+the_cleaned_folder_directory = f'./{the_cleaned_folder_name}'
 
 file_list = []
 president_list = []
 president_list_sorted = []
 def Nameextraction():
-    for files in os.listdir('../speeches 2023/'):
+    for files in os.listdir('./speeches 2023/'):
         file_list.append(files)
     for i in range(len(file_list)):
         president_name = file_list[i].replace('Nomination_','').replace('.txt','')
@@ -31,7 +31,9 @@ def Nameextraction():
             i = "Valéry Giscard d'Estaing"
         president_list_sorted.append(i)
     president_list_sorted_nodupe = list(dict.fromkeys(president_list_sorted))
-    print(president_list_sorted_nodupe)
+    print("Voilà la liste des présidents : " + ' ; '.join(map(str, president_list_sorted_nodupe)))
+    return president_list_sorted_nodupe
+
 
 
 def remove_punct(c):
@@ -63,5 +65,6 @@ def cleaning_the_texts(presidentfoldername,cleanedfoldername,presidentfolderdire
 
 cleaning_the_texts(president_folder_name,the_cleaned_folder_name,president_folder_directory,the_cleaned_folder_directory)
 
+def launch():
+    Nameextraction()
 
-Nameextraction()
