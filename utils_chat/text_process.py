@@ -31,7 +31,7 @@ def Nameextraction():
             i = "Valéry Giscard d'Estaing"
         president_list_sorted.append(i)
     president_list_sorted_nodupe = list(dict.fromkeys(president_list_sorted))
-    print("Voilà la liste des présidents : " + ' ; '.join(map(str, president_list_sorted_nodupe)))
+    print("Here are the president's names : " + ' ; '.join(map(str, president_list_sorted_nodupe)))
     return president_list_sorted_nodupe
 
 
