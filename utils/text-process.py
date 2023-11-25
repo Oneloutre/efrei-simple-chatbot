@@ -141,3 +141,49 @@ def tf_idf_calculator(tf_dict,idf_dict):
         president_tf_idf_dict[president] = tf_idf_for_word
     return president_tf_idf_dict
 tf_idf_dict = tf_idf_calculator(president_tf_score_dict,president_idf_score_dict)
+
+
+def calc_total_nb_words(tf_dict):
+    president_words = list(tf_dict["Chirac1"].keys())
+    for president in tf_dict.keys():
+        selected_president = tf_dict[president]
+        for word in selected_president.keys():
+            if word not in president_words:
+                president_words.append(word)
+    return president_words
+
+
+def docs_array(cleaned_folder_directory):
+    the_arr = []
+    the_arr.append("-")
+    for file in os.listdir(cleaned_folder_directory):
+        the_arr.append(file)
+    return the_arr
+
+
+def srch_tfidf_word_in_doc(tf_idf_dict, word, doc):
+    president = get_president_name(doc)
+    if word in tf_idf_dict[president]:
+        return (tf_idf_dict[president][word])
+    else:
+        return "null"
+
+
+def tf_idf_matrix(tf_idf, the_cleaned_folder_directory):
+    total_words_array = calc_total_nb_words(president_tf_score_dict)
+    nb_of_words = len(total_words_array)
+    total_docs_array = docs_array(the_cleaned_folder_directory)
+    nb_docs = len(total_docs_array)
+    the_matrix = []
+    the_matrix.append(total_docs_array)
+
+    for line in range(1, nb_of_words):
+        line_array = []
+        line_array.append(total_words_array[line - 1])
+        for col in range(1, nb_docs):
+            line_array.append(srch_tfidf_word_in_doc(tf_idf, line_array[0], the_matrix[0][col]))
+        the_matrix.append(line_array)
+
+    return (the_matrix)
+
+matrix_tf_idf = tf_idf_matrix(tf_idf_dict,the_cleaned_folder_directory)
