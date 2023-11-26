@@ -200,6 +200,7 @@ def fonct_srch_president_by_word():
 
 def fonct_first_president_to_mention_word():
     first_president_to_mention_word("éco", president_list_ordered, tf_dict)
+    first_president_to_mention_word("climat", president_list_ordered, tf_dict)
 
 def fonct_words_repeated_by_all_presidents():
 
