@@ -1,15 +1,16 @@
-from text_process import *
+from settings import program_settings
+from utils.text_process import *
 
-president_folder_name = 'speeches 2023'
-the_cleaned_folder_name = 'Cleaned'
-president_folder_directory = f'../{president_folder_name}'
-the_cleaned_folder_directory = f'../{the_cleaned_folder_name}'
+president_folder_name, the_cleaned_folder_name, president_folder_directory, the_cleaned_folder_directory = program_settings()
 
 
-matrix_tf_idf,nb_words,nb_docs = tf_idf_matrix(tf_idf_dict,the_cleaned_folder_directory)
-tf_idf_matrix_values_only = get_only_values_in_matrix(matrix_tf_idf,nb_words,nb_docs)
 tf_dict = tf_score_dict(the_cleaned_folder_directory)
-idf_dict = idf_calculator(the_cleaned_folder_directory)
+idf_dict = idf_calculator(the_cleaned_folder_directory,tf_dict)
+tf_idf_dict = tf_idf_calculator(tf_dict,idf_dict)
+matrix_tf_idf,nb_words,nb_docs = tf_idf_matrix(tf_idf_dict,the_cleaned_folder_directory,tf_dict)
+tf_idf_matrix_values_only = get_only_values_in_matrix(matrix_tf_idf,nb_words,nb_docs)
+
+
 
 def least_important_words(matrix,lines,rows):
     the_words = []
@@ -28,13 +29,13 @@ def least_important_words(matrix,lines,rows):
     print("")
 
 
-def srch_max_tfidf(matrix,lines):
+def srch_max_tfidf(dict):
     max_in_each_line = []
-    for line in range(lines):
-        max_in_each_line.append(max(matrix[line]))
+    for president in dict.keys():
+        selected = dict[president]
+        max_in_each_line.append(max(dict[president].values()))
     return max(max_in_each_line)
 
-srch_max_tfidf(tf_idf_matrix_values_only,nb_words-1)
 
 def word_highest_tfidf(matrix,lines,rows,score):
     the_words = []
@@ -140,7 +141,6 @@ def first_president_to_mention_word(word,president_list,tf_dict):
     president_mentioning = ""
     for president in president_list:
         if not result:
-            print("now in", president)
             versions = srch_docs_by_president(president, the_cleaned_folder_directory)
             for version in versions:
                 selected_president = tf_dict[version]
@@ -151,7 +151,7 @@ def first_president_to_mention_word(word,president_list,tf_dict):
     if president_mentioning == "":
         print("No president mentioned that word")
     else :
-        print(president_mentioning)
+        print("The first president to mention the word",word,"is:",president_mentioning)
 
 def get_pure_president_name(file):
     president_name = get_president_name(file)
@@ -169,14 +169,12 @@ def check_if_word_found_in_other_version(file,word,tf,idf):
     return is_found
 def words_repeated_by_all_presidents(matrix,lines,rows,tfdict,idfdict):
     the_words = []
-
     for line in range(1,lines):
         not_nill = True
         for row in range(1,rows):
             if matrix[line][row] == 0:
                 if not check_if_word_found_in_other_version(matrix[0][row],matrix[line][0],tfdict,idfdict):
                     not_nill = False
-
         if not_nill:
             the_words.append(matrix[line][0])
 
@@ -186,14 +184,30 @@ def words_repeated_by_all_presidents(matrix,lines,rows,tfdict,idfdict):
             print(word)
 
 
-least_important_words(matrix_tf_idf,nb_words,nb_docs)
-word_highest_tfidf(matrix_tf_idf,nb_words,nb_docs,srch_max_tfidf(tf_idf_matrix_values_only,nb_words-1))
-most_words_repeated_by_president(tf_dict,"Chirac")
 
-srch_president_by_word("nation",tf_dict)
-first_president_to_mention_word("éco",president_list_ordered,tf_dict)
+def fonct_least_important_words():
+    least_important_words(matrix_tf_idf, nb_words, nb_docs)
 
-words_repeated_by_all_presidents(matrix_tf_idf,nb_words,nb_docs,tf_dict,idf_dict)
+
+def fonct_word_highest_tfidf():
+    word_highest_tfidf(matrix_tf_idf, nb_words, nb_docs, srch_max_tfidf(tf_idf_dict))
+
+def fonct_most_words_repeated_by_president():
+    most_words_repeated_by_president(tf_dict, "Chirac")
+
+def fonct_srch_president_by_word():
+    srch_president_by_word("nation", tf_dict)
+
+def fonct_first_president_to_mention_word():
+    first_president_to_mention_word("éco", president_list_ordered, tf_dict)
+
+def fonct_words_repeated_by_all_presidents():
+
+    words_repeated_by_all_presidents(matrix_tf_idf, nb_words, nb_docs, tf_dict, idf_dict)
+
+
+
+
 
 
 
