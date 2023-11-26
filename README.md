@@ -6,6 +6,7 @@
 
 
 ## Installation :wrench:
+*don't mind for now, external libraries are not used yet*
 ```bash
 pip install -r requirements.txt
 ```
