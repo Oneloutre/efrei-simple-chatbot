@@ -198,3 +198,4 @@ def get_only_values_in_matrix(tfidf_matrix,nblines,nbcol):
         values_matrix.append(line_arr)
 
     return values_matrix
+
