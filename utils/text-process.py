@@ -184,6 +184,17 @@ def tf_idf_matrix(tf_idf, the_cleaned_folder_directory):
             line_array.append(srch_tfidf_word_in_doc(tf_idf, line_array[0], the_matrix[0][col]))
         the_matrix.append(line_array)
 
-    return (the_matrix)
+    return the_matrix
 
 matrix_tf_idf = tf_idf_matrix(tf_idf_dict,the_cleaned_folder_directory)
+
+def get_only_values_in_matrix(tfidf_matrix,nblines,nbcol):
+    values_matrix = []
+    for line in range(nblines):
+        line_arr = []
+        for col in range(nbcol):
+            if isinstance(tfidf_matrix[line][col],int):
+                line_arr.append(tfidf_matrix[line][col])
+        values_matrix.append(line_arr)
+
+    return values_matrix
