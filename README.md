@@ -9,7 +9,8 @@
 
 This project is a simple chatbot made in python for an Efrei project. It is based on a simple GUI in the CLI and a simple chatbot engine made by us.
 
-Here is what it can do for now :
+<u>Here is what it can do for now :</u>
+
 - [x] Display the list of the least important words in the corpus of documents.
 - [x] Display the word(s) with the highest TF-IDF score.
 - [x] Identify the word(s) most frequently repeated by President Chirac.
