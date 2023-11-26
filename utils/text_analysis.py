@@ -196,3 +196,4 @@ first_president_to_mention_word("éco",president_list_ordered,tf_dict)
 words_repeated_by_all_presidents(matrix_tf_idf,nb_words,nb_docs,tf_dict,idf_dict)
 
 
+
