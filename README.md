@@ -1,6 +1,6 @@
 # efrei-simple-chatbot
 
-![img.png](img_1.png)
+![img.png](banner.png)
 
 **:robot: A simple chatbot for an Efrei python project :robot:**
 
