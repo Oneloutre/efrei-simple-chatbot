@@ -188,7 +188,6 @@ def words_repeated_by_all_presidents(matrix,lines,rows,tfdict,idfdict):
 def fonct_least_important_words():
     least_important_words(matrix_tf_idf, nb_words, nb_docs)
 
-
 def fonct_word_highest_tfidf():
     word_highest_tfidf(matrix_tf_idf, nb_words, nb_docs, srch_max_tfidf(tf_idf_dict))
 
@@ -200,9 +199,9 @@ def fonct_srch_president_by_word():
 
 def fonct_first_president_to_mention_word():
     first_president_to_mention_word("éco", president_list_ordered, tf_dict)
+    first_president_to_mention_word("climat", president_list_ordered, tf_dict)
 
 def fonct_words_repeated_by_all_presidents():
-
     words_repeated_by_all_presidents(matrix_tf_idf, nb_words, nb_docs, tf_dict, idf_dict)
 
 
