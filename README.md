@@ -2,9 +2,10 @@
 
 ![img.png](img_1.png)
 
-**A simple chatbot for an Efrei python project :robot:**
+**:robot: A simple chatbot for an Efrei python project :robot:**
 
-[![Made with Python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![Made with Python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-green.svg)](https://github.com/Oneloutre/efrei-simple-chatbot)
+
 
 This project is a simple chatbot made in python for an Efrei project. It is based on a simple GUI in the CLI and a simple chatbot engine made by us.
 
