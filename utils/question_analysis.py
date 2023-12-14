@@ -30,12 +30,39 @@ def qst_words_in_docs(cleaned_qst):
             current_president = tf_dict[president]
             if word in current_president.keys():
                 the_presidents.append(president)
-
-        qst_dict[word] = the_presidents
+        if the_presidents:
+            qst_dict[word] = the_presidents
 
     return qst_dict
 
+def turn_matrix_col_to_arr(mat,col,lines):
+    arr = []
+    for i in range(1,lines):
+        arr.append(mat[i][col])
+    return arr
 
+def turn_vect_dict_to_arr(vect):
+    arr = []
+    for ai in vect:
+        arr.append(ai.values())
+
+    return arr
+
+def calc_scalary_product(a_arr,b_arr):
+    s = 0
+    for ai,bi in a_arr,b_arr:
+        s = s+ (ai*bi)
+    return s
+
+def calc_vector_length(vect):
+    s = 0
+    for i in vect:
+        s = s+i
+    the_length = math.sqrt(s)
+    return the_length
+
+def calc_similarity(qst_tf_idf_vect,tf_idf_matrix):
+    qst_length = len(qst_tf_idf_vect)
 
 def qst_test():
     clnd = processing_qst("Comment les presidents evoquent la nation?")
