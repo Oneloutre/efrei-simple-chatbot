@@ -200,4 +200,3 @@ def launch_text_process():
     Nameextraction(president_folder_directory)
     cleaning_the_texts(president_folder_name,the_cleaned_folder_name,president_folder_directory,the_cleaned_folder_directory)
     print("Text process was a success")
-

@@ -62,7 +62,17 @@ def calc_vector_length(vect):
     return the_length
 
 def calc_similarity(qst_tf_idf_vect,tf_idf_matrix):
+    similarity_dict = {}
     qst_length = len(qst_tf_idf_vect)
+    docs = number_of_docs(the_cleaned_folder_directory)
+    qst_tf_idf_vect_cleaned = turn_vect_dict_to_arr(qst_tf_idf_vect)
+    for row in range(1,docs):
+        matrix_row_cleaned = turn_matrix_col_to_arr(tf_idf_matrix,row,qst_length)
+        similarity_val = (calc_scalary_product(qst_tf_idf_vect_cleaned,matrix_row_cleaned))/calc_vector_length(qst_tf_idf_vect)*calc_vector_length(matrix_row_cleaned)
+        similarity_dict[tf_idf_matrix[0][row]] = similarity_val
+    return(similarity_dict)
+
+
 
 def qst_test():
     clnd = processing_qst("Comment les presidents evoquent la nation?")
