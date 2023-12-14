@@ -30,8 +30,8 @@ def qst_words_in_docs(cleaned_qst):
             current_president = tf_dict[president]
             if word in current_president.keys():
                 the_presidents.append(president)
-        if the_presidents:
-            qst_dict[word] = the_presidents
+
+        qst_dict[word] = the_presidents
 
     return qst_dict
 
