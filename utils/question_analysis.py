@@ -2,7 +2,7 @@ import os
 import string
 import math
 from settings import program_settings
-from text_process import *
+from utils.text_process import *
 
 
 
@@ -22,14 +22,25 @@ def processing_qst(the_qst):
 
 
 def qst_words_in_docs(cleaned_qst):
-    the_presidents = []
+
+    qst_dict = {}
     for word in cleaned_qst:
+        the_presidents = []
         for president in tf_dict.keys():
             current_president = tf_dict[president]
             if word in current_president.keys():
                 the_presidents.append(president)
+        if the_presidents:
+            qst_dict[word] = the_presidents
 
-    return the_presidents
+    return qst_dict
 
 
+
+def qst_test():
+    clnd = processing_qst("Comment les presidents evoquent la nation?")
+
+    prsdnts = qst_words_in_docs(clnd)
+
+    return(prsdnts)
 
