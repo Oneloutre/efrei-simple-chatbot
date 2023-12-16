@@ -121,7 +121,7 @@ def idf_calculator(the_cleaned_folder_directory,president_tf_score_dict):
         current_president = president_dict[president]
         idf_dict = {}
         for word in current_president.keys():
-            idf_dict[word] = math.log((1+(doc_count))/(1+(calculate_occ_word_indocs(word,the_cleaned_folder_directory,president_tf_score_dict))))
+            idf_dict[word] = math.log((1+(doc_count))/(1+(calculate_occ_word_indocs(word,the_cleaned_folder_directory,president_tf_score_dict))),10)
         president_idf_dict[president] = idf_dict
     return president_idf_dict
 

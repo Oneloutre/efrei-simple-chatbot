@@ -34,7 +34,42 @@ def qst_words_in_docs(cleaned_qst):
             qst_dict[word] = the_presidents
 
     return qst_dict
+def qst_tf_calculator(question_string):
+    list_of_tf = []
+    list_question_string = question_string.split()
+    for words in list_question_string:
+        dico = {}
+        counter = list_question_string.count(words)
+        dico[words] = counter
+        if dico not in list_of_tf:
+            list_of_tf.append(dico)
 
+    return list_of_tf
+
+
+def calculate_occ_word_in_docs(word,president_tf_score_dict):
+    president_dict = president_tf_score_dict
+    word_counter = 0
+    for president in president_dict.keys():
+        current_president = president_dict[president]
+        if word in current_president.keys():
+            word_counter = word_counter + 1
+
+    return word_counter
+
+
+
+def qst_idf_calculator(the_cleaned_folder_directory,list_of_tf):
+    doc_count = number_of_docs(the_cleaned_folder_directory)
+    mots = []
+    idf_dict = {}
+    for dictionnaire in list_of_tf:
+        mot = next(iter(dictionnaire))
+        mots.append(mot)
+    for i in range(len(mots)):
+        current_word = mots[i]
+        idf_dict[current_word] = math.log((1+(doc_count)/(1+(calculate_occ_word_in_docs(current_word,tf_dict)))))
+    return idf_dict
 
 
 def turn_matrix_col_to_arr(mat,col,lines):
@@ -102,7 +137,7 @@ def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
 
 
 def qst_test():
-    clnd = processing_qst("Comment les presidents evoquent la nation?")
+    clnd = processing_qst("vive l'écologie")
 
     prsdnts = qst_words_in_docs(clnd)
 
