@@ -161,8 +161,9 @@ def most_similar_doc(similarity):
             return doc
 def word_in_most_similar_doc(qst_tf_idf,sim,word_in_doc):
     highest_sim = most_similar_doc(sim)
-    doc = highest_sim.replace(".txt","")
+    doc = highest_sim.replace(".txt","").replace("Nomination_","")
     curr_highest = 0
+    word_is = ""
     for word in word_in_doc.keys():
         if doc in word_in_doc[word]:
             if qst_tf_idf[word] > curr_highest:
@@ -205,5 +206,5 @@ def qst_test():
     best_sim = doc_with_best_similarity(sim)
     highest_tfidf = qst_highest_tfidf(qst_vect)
     occ = calculate_occ_word_in_docs('climat',tf_dict)
-    the_word = word_in_most_similar_doc(qst_tf_idf,)
-    print(sim)
+    the_word = word_in_most_similar_doc(qst_tf_idf,sim,docs_for_question)
+    print(the_word)
