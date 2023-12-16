@@ -57,9 +57,10 @@ def calculate_occ_word_in_docs(word,president_tf_score_dict):
         same_president = False
         current_president = president_dict[president]
         for president_word in current_president.keys():
-            same_president = True
             if word in president_word and not same_president:
                 word_counter = word_counter + 1
+                same_president = True
+
     return word_counter
 
 
@@ -153,6 +154,25 @@ def qst_highest_tfidf(qst_tf_idf_vect):
             if qst_tf_idf_vect[i][key] == highest:
                 return qst_tf_idf_vect[i][key]
 
+def most_similar_doc(similarity):
+    max_val = max(similarity.values())
+    for doc in similarity.keys():
+        if similarity[doc] == max_val:
+            return doc
+def word_in_most_similar_doc(qst_tf_idf,sim,word_in_doc):
+    highest_sim = most_similar_doc(sim)
+    doc = highest_sim.replace(".txt","")
+    curr_highest = 0
+    for word in word_in_doc.keys():
+        if doc in word_in_doc[word]:
+            if qst_tf_idf[word] > curr_highest:
+                curr_highest = qst_tf_idf[word]
+                word_is = word
+    return word_is
+
+
+
+
 def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
 
     with open(f'{president_dir}/{the_doc}','r') as president_doc:
@@ -185,4 +205,5 @@ def qst_test():
     best_sim = doc_with_best_similarity(sim)
     highest_tfidf = qst_highest_tfidf(qst_vect)
     occ = calculate_occ_word_in_docs('climat',tf_dict)
-    print(occ)
+    the_word = word_in_most_similar_doc(qst_tf_idf,)
+    print(sim)
