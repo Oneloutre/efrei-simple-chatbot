@@ -35,12 +35,51 @@ def qst_words_in_docs(cleaned_qst):
 
     return qst_dict
 
+def qst_tf_calculator(question_string):
+    question_string = processing_qst(question_string)
+    list_of_tf = []
+    list_question_string = question_string
+    for words in list_question_string:
+        dico = {}
+        counter = list_question_string.count(words)
+        dico[words] = counter
+        if dico not in list_of_tf:
+            list_of_tf.append(dico)
+
+    return list_of_tf
 
 
-def qst_test():
-    clnd = processing_qst("Comment les presidents evoquent la nation?")
+def calculate_occ_word_in_docs(word,the_cleaned_folder_directory,president_tf_score_dict):
+    president_dict = president_tf_score_dict
+    word_counter = 0
+    for president in president_dict.keys():
+        current_president = president_dict[president]
+        if word in current_president.keys():
+            word_counter = word_counter + 1
 
-    prsdnts = qst_words_in_docs(clnd)
+    return word_counter
 
-    return(prsdnts)
 
+
+def qst_idf_calculator(the_cleaned_folder_directory,list_of_tf):
+    doc_count = number_of_docs(the_cleaned_folder_directory)
+    mots = []
+    idf_dict = {}
+    for dictionnaire in list_of_tf:
+        mot = next(iter(dictionnaire))
+        mots.append(mot)
+    for i in range(len(mots)):
+        current_word = mots[i]
+        idf_dict[current_word] = math.log((1+(doc_count)/(1+(calculate_occ_word_in_docs(current_word, the_cleaned_folder_directory,tf_dict)))), 10)
+    return idf_dict
+
+
+def qst_tf_idf_calculator(qst_tf_calculator_value, qst_idf_calculator_value):
+    qst_tf_idf_dict = {}
+    qst_tf_calculator_value_dict = {}
+    for dictionnaire in qst_tf_calculator_value:
+        qst_tf_calculator_value_dict.update(dictionnaire)
+    for word in qst_tf_calculator_value_dict:
+        print(word)
+        qst_tf_idf_dict[word] = qst_tf_calculator_value_dict[word]*qst_idf_calculator_value[word]
+    return qst_tf_idf_dict
