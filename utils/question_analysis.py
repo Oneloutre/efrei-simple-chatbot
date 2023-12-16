@@ -207,4 +207,7 @@ def qst_test():
     highest_tfidf = qst_highest_tfidf(qst_vect)
     occ = calculate_occ_word_in_docs('climat',tf_dict)
     the_word = word_in_most_similar_doc(qst_tf_idf,sim,docs_for_question)
-    print(the_word)
+    the_doc = most_similar_doc(sim)
+
+    the_sentence = finding_first_sentence_with_word(the_word,the_doc,president_folder_directory)
+    print(the_sentence)
