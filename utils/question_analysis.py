@@ -35,6 +35,8 @@ def qst_words_in_docs(cleaned_qst):
 
     return qst_dict
 
+
+
 def turn_matrix_col_to_arr(mat,col,lines):
     arr = []
     for i in range(1,lines):
@@ -72,6 +74,31 @@ def calc_similarity(qst_tf_idf_vect,tf_idf_matrix):
         similarity_dict[tf_idf_matrix[0][row]] = similarity_val
     return(similarity_dict)
 
+def doc_with_best_similarity(similarity_dict):
+    best_sim = max(similarity_dict.values())
+    for key in similarity_dict.keys():
+        if similarity_dict[key] == best_sim:
+            return key
+
+def qst_highest_tfidf(qst_tf_idf_vect):
+    qst_vect = turn_vect_dict_to_arr(qst_tf_idf_vect)
+    highest = max(qst_vect)
+
+    for i in range(len(qst_tf_idf_vect)):
+        for key in qst_tf_idf_vect[i].keys():
+            if qst_tf_idf_vect[i][key] == highest:
+                return qst_tf_idf_vect[i][key]
+
+def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
+
+    with open(f'{president_dir}/{the_doc}','r') as president_doc:
+        paragraphs = president_doc.read().split('\n')
+
+        for paragraph in paragraphs:
+            sentences = paragraph.split('.')
+            for sentence in sentences:
+                if qst_highest_tf in sentence.lower():
+                    return sentence.strip()+'.'
 
 
 def qst_test():
