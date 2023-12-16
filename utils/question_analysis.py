@@ -47,7 +47,6 @@ def qst_tf_calculator(question_string):
         if dico not in list_of_tf:
             list_of_tf.append(dico)
 
-
     return list_of_tf
 
 
@@ -187,9 +186,6 @@ def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
                     return sentence.strip()+'.'
 
 
-    return list_of_tf
-
-
 def qst_test():
 
     question = "Peux tu me dire comment une nation peut-elle prendre soin du climat?"
@@ -211,4 +207,7 @@ def qst_test():
     highest_tfidf = qst_highest_tfidf(qst_vect)
     occ = calculate_occ_word_in_docs('climat',tf_dict)
     the_word = word_in_most_similar_doc(qst_tf_idf,sim,docs_for_question)
-    print(the_word)
+    the_doc = most_similar_doc(sim)
+
+    the_sentence = finding_first_sentence_with_word(the_word,the_doc,president_folder_directory)
+    print(the_sentence)
