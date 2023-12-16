@@ -54,11 +54,12 @@ def calculate_occ_word_in_docs(word,president_tf_score_dict):
     president_dict = president_tf_score_dict
     word_counter = 0
     for president in president_dict.keys():
+        same_president = False
         current_president = president_dict[president]
         for president_word in current_president.keys():
-            if word == president_word:
+            same_president = True
+            if word in president_word and not same_president:
                 word_counter = word_counter + 1
-
     return word_counter
 
 
@@ -183,5 +184,5 @@ def qst_test():
     sim = calc_similarity(qst_vect,matrix_tf_idf)
     best_sim = doc_with_best_similarity(sim)
     highest_tfidf = qst_highest_tfidf(qst_vect)
-    print(qst_tf_idf)
-    print(highest_tfidf)
+    occ = calculate_occ_word_in_docs('climat',tf_dict)
+    print(occ)
