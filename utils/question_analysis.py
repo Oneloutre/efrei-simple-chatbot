@@ -47,6 +47,7 @@ def qst_tf_calculator(question_string):
         if dico not in list_of_tf:
             list_of_tf.append(dico)
 
+
     return list_of_tf
 
 
@@ -184,6 +185,9 @@ def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
             for sentence in sentences:
                 if qst_highest_tf in sentence.lower():
                     return sentence.strip()+'.'
+
+
+    return list_of_tf
 
 
 def qst_test():

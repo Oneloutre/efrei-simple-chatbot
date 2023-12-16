@@ -121,7 +121,9 @@ def idf_calculator(the_cleaned_folder_directory,president_tf_score_dict):
         current_president = president_dict[president]
         idf_dict = {}
         for word in current_president.keys():
+
             idf_dict[word] = math.log((1+(doc_count))/(1+(calculate_occ_word_indocs(word,the_cleaned_folder_directory,president_tf_score_dict))),10)
+
         president_idf_dict[president] = idf_dict
     return president_idf_dict
 
@@ -200,3 +202,4 @@ def launch_text_process():
     Nameextraction(president_folder_directory)
     cleaning_the_texts(president_folder_name,the_cleaned_folder_name,president_folder_directory,the_cleaned_folder_directory)
     print("Text process was a success")
+
