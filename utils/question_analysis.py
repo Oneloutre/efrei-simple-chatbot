@@ -210,4 +210,6 @@ def qst_test():
     the_doc = most_similar_doc(sim)
 
     the_sentence = finding_first_sentence_with_word(the_word,the_doc,president_folder_directory)
+
     print(sim)
+
