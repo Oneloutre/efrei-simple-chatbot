@@ -101,7 +101,7 @@ def number_of_docs(the_cleaned_folder_directory):
 
 
 
-def calculate_occ_word_indocs(word,the_cleaned_folder_directory,president_tf_score_dict):
+def calculate_occ_word_indocs(word,president_tf_score_dict):
     president_dict = president_tf_score_dict
     word_counter = 0
     for president in president_dict.keys():
@@ -121,7 +121,7 @@ def idf_calculator(the_cleaned_folder_directory,president_tf_score_dict):
         current_president = president_dict[president]
         idf_dict = {}
         for word in current_president.keys():
-            idf_dict[word] = math.log((1+(doc_count))/(1+(calculate_occ_word_indocs(word,the_cleaned_folder_directory,president_tf_score_dict))),10)
+            idf_dict[word] = math.log((1+(doc_count))/(1+(calculate_occ_word_indocs(word,president_tf_score_dict))),10)
         president_idf_dict[president] = idf_dict
     return president_idf_dict
 
