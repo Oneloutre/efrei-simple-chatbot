@@ -140,12 +140,13 @@ def calc_similarity(qst_tf_idf_vect,tf_idf_matrix):
             similarity_dict[tf_idf_matrix[0][row]] = similarity_val
         except ZeroDivisionError:
             similarity_dict[tf_idf_matrix[0][row]] = 0
-
+    s = 0
     for values in similarity_dict.values():
-        if values > 0:
-            return similarity_dict
-        else:
-            return 0
+        s = s + values
+    if s > 0:
+        return similarity_dict
+    else:
+        return 0
 
 def doc_with_best_similarity(similarity_dict):
     best_sim = max(similarity_dict.values())
