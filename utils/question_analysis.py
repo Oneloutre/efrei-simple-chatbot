@@ -17,6 +17,7 @@ tf_idf_matrix_values_only = get_only_values_in_matrix(matrix_tf_idf,nb_words,nb_
 def processing_qst(the_qst):
     cleaned_qst = the_qst.lower()
     cleaned_qst = cleaned_qst.replace("-", " ")
+    cleaned_qst = cleaned_qst.replace("'", " ")
     cleaned_qst = remove_punct(the_qst)
     cleaned_qst = list(cleaned_qst.split(" "))
     return cleaned_qst
@@ -193,8 +194,9 @@ def generate_question(sentence,question):
     }
     for starter in question_starters.keys():
         if question.startswith(starter):
-            answer = question_starters[starter] + sentence.lower()
-    return answer
+            return (question_starters[starter] + sentence.lower())
+    return sentence
+
 
 
 
@@ -219,6 +221,6 @@ def chatbot_handler():
 
     the_sentence = finding_first_sentence_with_word(the_word,the_doc,president_folder_directory)
     answer = generate_question(the_sentence,question)
-    print(answer)
+    print(qst_idf)
 
 
