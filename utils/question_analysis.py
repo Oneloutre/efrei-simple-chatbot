@@ -23,7 +23,6 @@ def processing_qst(the_qst):
 
 
 def qst_words_in_docs(cleaned_qst):
-
     qst_dict = {}
     for word in cleaned_qst:
         the_presidents = []
@@ -186,9 +185,22 @@ def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
                     return sentence.strip()+'.'
 
 
-def qst_test():
+def generate_question(sentence,question):
+    question_starters = {
+        "Peux-tu":"Oui, bien sûr! ",
+        "Comment": "Après analyse, ",
+        "Pourquoi": "Car, "
+    }
+    for starter in question_starters.keys():
+        if question.startswith(starter):
+            answer = question_starters[starter] + sentence.lower()
+    return answer
 
-    question = "Peux tu me dire comment une nation peut-elle prendre soin du climat?"
+
+
+def chatbot_handler():
+
+    question = input("What is your question? : ")
     question_cleaned = processing_qst(question)
 
     docs_for_question = qst_words_in_docs(question_cleaned)
@@ -200,17 +212,13 @@ def qst_test():
 
     qst_vect = create_qst_vect(qst_tf_idf,matrix_tf_idf,nb_words,docs_for_question)
 
-    qst_vect_dict_vect = turn_vect_dict_to_arr(qst_vect)
 
     sim = calc_similarity(qst_vect,matrix_tf_idf)
-    best_sim = doc_with_best_similarity(sim)
-    highest_tfidf = qst_highest_tfidf(qst_vect)
-    occ = calculate_occ_word_in_docs('climat',tf_dict)
     the_word = word_in_most_similar_doc(qst_tf_idf,sim,docs_for_question)
     the_doc = most_similar_doc(sim)
 
     the_sentence = finding_first_sentence_with_word(the_word,the_doc,president_folder_directory)
-
-    print(sim)
+    answer = generate_question(the_sentence,question)
+    print(answer)
 
 
