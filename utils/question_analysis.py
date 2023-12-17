@@ -18,7 +18,7 @@ def processing_qst(the_qst):
     cleaned_qst = the_qst.lower()
     cleaned_qst = cleaned_qst.replace("-", " ")
     cleaned_qst = cleaned_qst.replace("'", " ")
-    cleaned_qst = remove_punct(the_qst)
+    cleaned_qst = remove_punct(cleaned_qst)
     cleaned_qst = list(cleaned_qst.split(" "))
     return cleaned_qst
 
@@ -135,9 +135,17 @@ def calc_similarity(qst_tf_idf_vect,tf_idf_matrix):
     qst_tf_idf_vect_cleaned = turn_vect_dict_to_arr(qst_tf_idf_vect)
     for row in range(1,docs):
         matrix_row_cleaned = turn_matrix_col_to_arr(tf_idf_matrix,row,qst_length)
-        similarity_val = (calc_scalary_product(qst_tf_idf_vect_cleaned,matrix_row_cleaned))/calc_vector_length(qst_tf_idf_vect_cleaned)*calc_vector_length(matrix_row_cleaned)
-        similarity_dict[tf_idf_matrix[0][row]] = similarity_val
-    return(similarity_dict)
+        try:
+            similarity_val = (calc_scalary_product(qst_tf_idf_vect_cleaned,matrix_row_cleaned))/calc_vector_length(qst_tf_idf_vect_cleaned)*calc_vector_length(matrix_row_cleaned)
+            similarity_dict[tf_idf_matrix[0][row]] = similarity_val
+        except ZeroDivisionError:
+            similarity_dict[tf_idf_matrix[0][row]] = 0
+
+    for values in similarity_dict.values():
+        if values > 0:
+            return similarity_dict
+        else:
+            return 0
 
 def doc_with_best_similarity(similarity_dict):
     best_sim = max(similarity_dict.values())
@@ -145,14 +153,6 @@ def doc_with_best_similarity(similarity_dict):
         if similarity_dict[key] == best_sim:
             return key
 
-def qst_highest_tfidf(qst_tf_idf_vect):
-    qst_vect = turn_vect_dict_to_arr(qst_tf_idf_vect)
-    highest = max(qst_vect)
-
-    for i in range(len(qst_tf_idf_vect)):
-        for key in qst_tf_idf_vect[i].keys():
-            if qst_tf_idf_vect[i][key] == highest:
-                return qst_tf_idf_vect[i][key]
 
 def most_similar_doc(similarity):
     max_val = max(similarity.values())
@@ -216,11 +216,16 @@ def chatbot_handler():
 
 
     sim = calc_similarity(qst_vect,matrix_tf_idf)
-    the_word = word_in_most_similar_doc(qst_tf_idf,sim,docs_for_question)
-    the_doc = most_similar_doc(sim)
 
-    the_sentence = finding_first_sentence_with_word(the_word,the_doc,president_folder_directory)
-    answer = generate_question(the_sentence,question)
-    print(qst_idf)
+    if sim == 0:
+        print("Sorry but there was an error finding an answer, maybe try being more specific?")
+
+    else:
+        the_word = word_in_most_similar_doc(qst_tf_idf, sim, docs_for_question)
+        the_doc = most_similar_doc(sim)
+
+        the_sentence = finding_first_sentence_with_word(the_word, the_doc, president_folder_directory)
+        answer = generate_question(the_sentence, question)
+        print(answer)
 
 
