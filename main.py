@@ -3,6 +3,8 @@ import utils.text_process as process
 import utils.question_analysis as chatbot
 import useless_robots.useless_robot_selector as useless
 
+# Main function, handling the menu and the program.
+
 def launch():
 
     print("\n========================== { Welcome to the Chatbot ! } ==========================")
@@ -28,7 +30,7 @@ def launch():
         launch()
     elif choice == 7:
         chatbot.chatbot_handler()
-        while True:
+        while True: # Loop to ask the user if he wants to go back to the menu or ask another question.
             print("Would you like to go back to menu, or ask another question ?\n1. Go back to menu.\n2. Ask another question.")
             choice = int(input())
             if choice == 1:
@@ -45,7 +47,7 @@ def launch():
 
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # Main function, handling the menu and the program.
     print(useless.useless_robot_selector())
     process.launch_text_process()
     launch()

@@ -3,10 +3,10 @@ import string
 import math
 from settings import program_settings
 
-president_folder_name, the_cleaned_folder_name, president_folder_directory, the_cleaned_folder_directory = program_settings()
+president_folder_name, the_cleaned_folder_name, president_folder_directory, the_cleaned_folder_directory = program_settings() #importing the settings from settings.py
 
 
-def Nameextraction(president_folder_directory):
+def Nameextraction(president_folder_directory): #function to extract the names of the presidents from the files
     file_list = []
     president_list = []
     president_list_sorted = []
@@ -33,7 +33,7 @@ def Nameextraction(president_folder_directory):
     president_list_sorted_nodupe = list(dict.fromkeys(president_list_sorted))
 
 
-def remove_punct(c):
+def remove_punct(c): #function to remove the punctuation from the files
     line = c
     line = line.replace("'"," ")
     line = line.replace(","," ")
@@ -42,7 +42,7 @@ def remove_punct(c):
     return line
 
 
-def cleaning_the_texts(presidentfoldername,cleanedfoldername,presidentfolderdirectory,cleanedfolderdirectory):
+def cleaning_the_texts(presidentfoldername,cleanedfoldername,presidentfolderdirectory,cleanedfolderdirectory): #
 
     the_folder = presidentfoldername
     the_cleaned_folder = cleanedfoldername
@@ -64,11 +64,11 @@ def cleaning_the_texts(presidentfoldername,cleanedfoldername,presidentfolderdire
 
 
 
-def get_president_name(file):
+def get_president_name(file): #function to get the name of the president from the file
     president_name = file.replace("Nomination_", "").replace(".txt", "")
     return president_name
 
-def tf_score_dict(the_cleaned_folder_directory):
+def tf_score_dict(the_cleaned_folder_directory): #function to calculate the TF score of the words in the files
     presidents = {}
     for file in os.listdir(the_cleaned_folder_directory):
         with open(f'{the_cleaned_folder_directory}/{file}',"r") as test:
@@ -92,7 +92,7 @@ def tf_score_dict(the_cleaned_folder_directory):
 
 
 
-def number_of_docs(the_cleaned_folder_directory):
+def number_of_docs(the_cleaned_folder_directory): #function to calculate the number of files in the folder
     doc_counter = 0
     for file in os.listdir(the_cleaned_folder_directory):
         doc_counter = doc_counter + 1
@@ -100,7 +100,7 @@ def number_of_docs(the_cleaned_folder_directory):
 
 
 
-def calculate_occ_word_indocs(word,president_tf_score_dict):
+def calculate_occ_word_indocs(word,president_tf_score_dict): #function to calculate the occurence of a word in the files
     president_dict = president_tf_score_dict
     word_counter = 0
     for president in president_dict.keys():
@@ -112,7 +112,7 @@ def calculate_occ_word_indocs(word,president_tf_score_dict):
 
 
 
-def idf_calculator(the_cleaned_folder_directory,president_tf_score_dict):
+def idf_calculator(the_cleaned_folder_directory,president_tf_score_dict): #function to calculate the IDF score of the words in the files
     doc_count = number_of_docs(the_cleaned_folder_directory)
     president_dict = president_tf_score_dict
     president_idf_dict = {}
@@ -125,7 +125,7 @@ def idf_calculator(the_cleaned_folder_directory,president_tf_score_dict):
     return president_idf_dict
 
 
-def tf_idf_calculator(tf_dict,idf_dict):
+def tf_idf_calculator(tf_dict,idf_dict): #function to calculate the TF-IDF score of the words in the files
     president_tf_idf_dict = {}
     for president in tf_dict.keys():
         curr_president_tf = tf_dict[president]
@@ -137,7 +137,7 @@ def tf_idf_calculator(tf_dict,idf_dict):
     return president_tf_idf_dict
 
 
-def calc_total_nb_words(tf_dict):
+def calc_total_nb_words(tf_dict): #function to calculate the total number of words in the files
     president_words = list(tf_dict["Chirac1"].keys())
     for president in tf_dict.keys():
         selected_president = tf_dict[president]
@@ -147,7 +147,7 @@ def calc_total_nb_words(tf_dict):
     return president_words
 
 
-def docs_array(cleaned_folder_directory):
+def docs_array(cleaned_folder_directory): #function to create an array with the names of the files
     the_arr = []
     the_arr.append("-")
     for file in os.listdir(cleaned_folder_directory):
@@ -155,7 +155,7 @@ def docs_array(cleaned_folder_directory):
     return the_arr
 
 
-def srch_tfidf_word_in_doc(tf_idf_dict, word, doc):
+def srch_tfidf_word_in_doc(tf_idf_dict, word, doc): #function to search for a word in a file
     president = get_president_name(doc)
     if word in tf_idf_dict[president]:
         return (tf_idf_dict[president][word])
@@ -163,7 +163,7 @@ def srch_tfidf_word_in_doc(tf_idf_dict, word, doc):
         return 0
 
 
-def tf_idf_matrix(tf_idf, the_cleaned_folder_directory,president_tf_score_dict):
+def tf_idf_matrix(tf_idf, the_cleaned_folder_directory,president_tf_score_dict): #function to create the TF-IDF matrix
     total_words_array = calc_total_nb_words(president_tf_score_dict)
     nb_of_words = len(total_words_array)
     total_docs_array = docs_array(the_cleaned_folder_directory)
@@ -182,7 +182,7 @@ def tf_idf_matrix(tf_idf, the_cleaned_folder_directory,president_tf_score_dict):
 
 
 
-def get_only_values_in_matrix(tfidf_matrix,nblines,nbcol):
+def get_only_values_in_matrix(tfidf_matrix,nblines,nbcol): #function to get the values of the matrix
     values_matrix = []
     for line in range(nblines):
         line_arr = []
@@ -194,7 +194,7 @@ def get_only_values_in_matrix(tfidf_matrix,nblines,nbcol):
     return values_matrix
 
 
-def launch_text_process():
+def launch_text_process(): #function to launch the text process
     print("Starting text process")
     Nameextraction(president_folder_directory)
     cleaning_the_texts(president_folder_name,the_cleaned_folder_name,president_folder_directory,the_cleaned_folder_directory)

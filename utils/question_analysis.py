@@ -1,3 +1,5 @@
+# File handling the question analysis and the chatbot.
+
 from utils.text_process import *
 
 
@@ -9,7 +11,9 @@ tf_idf_dict = tf_idf_calculator(tf_dict,idf_dict)
 matrix_tf_idf,nb_words,nb_docs = tf_idf_matrix(tf_idf_dict,the_cleaned_folder_directory,tf_dict)
 tf_idf_matrix_values_only = get_only_values_in_matrix(matrix_tf_idf,nb_words,nb_docs)
 
-def processing_qst(the_qst):
+# variables assignment
+
+def processing_qst(the_qst): # function to process the question and manage the punctuation
     cleaned_qst = the_qst.lower()
     cleaned_qst = cleaned_qst.replace("-", " ")
     cleaned_qst = cleaned_qst.replace("'", " ")
@@ -18,7 +22,7 @@ def processing_qst(the_qst):
     return cleaned_qst
 
 
-def qst_words_in_docs(cleaned_qst):
+def qst_words_in_docs(cleaned_qst): # function to find the words in the question in the documents
     qst_dict = {}
     for word in cleaned_qst:
         the_presidents = []
@@ -31,7 +35,7 @@ def qst_words_in_docs(cleaned_qst):
             qst_dict[word] = the_presidents
     return qst_dict
 
-def qst_tf_calculator(question_string):
+def qst_tf_calculator(question_string): # function to calculate the TF score of the question
     question_string = processing_qst(question_string)
     list_of_tf = []
     list_question_string = question_string
@@ -45,7 +49,7 @@ def qst_tf_calculator(question_string):
     return list_of_tf
 
 
-def calculate_occ_word_in_docs(word,president_tf_score_dict):
+def calculate_occ_word_in_docs(word,president_tf_score_dict): # function to calculate the occurence of a word in the documents
     president_dict = president_tf_score_dict
     word_counter = 0
     for president in president_dict.keys():
@@ -60,7 +64,7 @@ def calculate_occ_word_in_docs(word,president_tf_score_dict):
 
 
 
-def qst_idf_calculator(the_cleaned_folder_directory,list_of_tf):
+def qst_idf_calculator(the_cleaned_folder_directory,list_of_tf): # function to calculate the IDF score of the question
     doc_count = number_of_docs(the_cleaned_folder_directory)
     mots = []
     idf_dict = {}
@@ -73,7 +77,7 @@ def qst_idf_calculator(the_cleaned_folder_directory,list_of_tf):
     return idf_dict
 
 
-def qst_tf_idf_calculator(qst_tf_calculator_value, qst_idf_calculator_value):
+def qst_tf_idf_calculator(qst_tf_calculator_value, qst_idf_calculator_value): # function to calculate the TF-IDF score of the question
     qst_tf_idf_dict = {}
     qst_tf_calculator_value_dict = {}
     for dictionnaire in qst_tf_calculator_value:
@@ -82,7 +86,7 @@ def qst_tf_idf_calculator(qst_tf_calculator_value, qst_idf_calculator_value):
         qst_tf_idf_dict[word] = qst_tf_calculator_value_dict[word]*qst_idf_calculator_value[word]
     return qst_tf_idf_dict
 
-def create_qst_vect(qst_tf_idf,mat,lines,words_in_doc):
+def create_qst_vect(qst_tf_idf,mat,lines,words_in_doc): # function to create the vector of the question
     the_vect = []
 
     for i in range(1,lines):
@@ -96,13 +100,13 @@ def create_qst_vect(qst_tf_idf,mat,lines,words_in_doc):
     return the_vect
 
 
-def turn_matrix_col_to_arr(mat,col,lines):
+def turn_matrix_col_to_arr(mat,col,lines): # function to turn a matrix column into an array
     arr = []
     for i in range(1,lines):
         arr.append(mat[i][col])
     return arr
 
-def turn_vect_dict_to_arr(vect):
+def turn_vect_dict_to_arr(vect): # function to turn a vector dictionary into an array
     arr = []
     for i in range(len(vect)):
         for word in vect[i].keys():
@@ -110,20 +114,20 @@ def turn_vect_dict_to_arr(vect):
 
     return arr
 
-def calc_scalary_product(a_arr,b_arr):
+def calc_scalary_product(a_arr,b_arr): # function to calculate the scalar product of two arrays
     s = 0
     for i in range(len(b_arr)):
         s = s+(a_arr[i]*b_arr[i])
     return s
 
-def calc_vector_length(vect):
+def calc_vector_length(vect): # function to calculate the length of a vector
     s = 0
     for i in vect:
         s = s+i
     the_length = math.sqrt(s)
     return the_length
 
-def calc_similarity(qst_tf_idf_vect,tf_idf_matrix):
+def calc_similarity(qst_tf_idf_vect,tf_idf_matrix): # function to calculate the similarity between the question and the documents.
     similarity_dict = {}
     qst_length = len(qst_tf_idf_vect)
     docs = number_of_docs(the_cleaned_folder_directory)
@@ -143,19 +147,19 @@ def calc_similarity(qst_tf_idf_vect,tf_idf_matrix):
     else:
         return 0
 
-def doc_with_best_similarity(similarity_dict):
+def doc_with_best_similarity(similarity_dict): # function to find the document with the best similarity score
     best_sim = max(similarity_dict.values())
     for key in similarity_dict.keys():
         if similarity_dict[key] == best_sim:
             return key
 
 
-def most_similar_doc(similarity):
+def most_similar_doc(similarity): # function to find the most similar document
     max_val = max(similarity.values())
     for doc in similarity.keys():
         if similarity[doc] == max_val:
             return doc
-def word_in_most_similar_doc(qst_tf_idf,sim,word_in_doc):
+def word_in_most_similar_doc(qst_tf_idf,sim,word_in_doc): # function to find the word in the most similar document
     highest_sim = most_similar_doc(sim)
     doc = highest_sim.replace(".txt","").replace("Nomination_","")
     curr_highest = 0
@@ -170,7 +174,7 @@ def word_in_most_similar_doc(qst_tf_idf,sim,word_in_doc):
 
 
 
-def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
+def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):# function to find the first sentence with the word in the document
 
     with open(f'{president_dir}/{the_doc}','r') as president_doc:
         paragraphs = president_doc.read().split('\n')
@@ -182,7 +186,7 @@ def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
                     return sentence.strip()+'.'
 
 
-def generate_question(sentence,question):
+def generate_question(sentence,question): # function to generate the answer to the question
     question_starters = {
         "Peux-tu":"Oui, bien sûr! ",
         "peux-tu": "Oui, bien sûr! ",
@@ -203,7 +207,7 @@ def generate_question(sentence,question):
 
 
 
-def chatbot_handler():
+def chatbot_handler(): # function to handle the chatbot
 
     question = input("What is your question? : ")
     question_cleaned = processing_qst(question)
