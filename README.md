@@ -17,6 +17,7 @@ This project is a simple chatbot made in python for an Efrei project. It is base
 - [x] Identify the name(s) of the president(s) who have spoken about the "Nation" and the one who has repeated it the most times.
 - [x] Identify the first president to discuss climate and/or ecology.
 - [x] Excluding words labeled as "non-important," what word(s) have all presidents mentioned.
+- [x] Get an answer from a question asked by the user.
 
 ### Table of contents :bookmark_tabs:
 

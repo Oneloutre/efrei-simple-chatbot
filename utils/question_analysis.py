@@ -1,9 +1,4 @@
-import os
-import string
-import math
-from settings import program_settings
 from utils.text_process import *
-
 
 
 president_folder_name, the_cleaned_folder_name, president_folder_directory, the_cleaned_folder_directory = program_settings()
@@ -190,13 +185,20 @@ def finding_first_sentence_with_word(qst_highest_tf,the_doc,president_dir):
 def generate_question(sentence,question):
     question_starters = {
         "Peux-tu":"Oui, bien sûr! ",
+        "peux-tu": "Oui, bien sûr! ",
+        "Parle-moi":"Avec plaisir ! ",
+        "parle-moi": "Avec plaisir ! ",
         "Comment": "Après analyse, ",
-        "Pourquoi": "Car, "
+        "comment": "Après analyse, ",
+        "Pourquoi": "Car, ",
+        "pourquoi": "Car, ",
+        "Explique-moi":"Bien sûr, ",
+        "explique-moi":"Bien sûr, "
     }
     for starter in question_starters.keys():
         if question.startswith(starter):
             return (question_starters[starter] + sentence.lower())
-    return sentence
+    return f"réponse : {sentence}"
 
 
 
@@ -228,5 +230,4 @@ def chatbot_handler():
         the_sentence = finding_first_sentence_with_word(the_word, the_doc, president_folder_directory)
         answer = generate_question(the_sentence, question)
         print(answer)
-
 

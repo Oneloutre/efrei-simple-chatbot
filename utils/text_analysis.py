@@ -1,4 +1,3 @@
-from settings import program_settings
 from utils.text_process import *
 
 president_folder_name, the_cleaned_folder_name, president_folder_directory, the_cleaned_folder_directory = program_settings()
