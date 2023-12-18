@@ -31,7 +31,6 @@ def Nameextraction(president_folder_directory):
             i = "Valéry Giscard d'Estaing"
         president_list_sorted.append(i)
     president_list_sorted_nodupe = list(dict.fromkeys(president_list_sorted))
-    print(president_list_sorted_nodupe)
 
 
 def remove_punct(c):
