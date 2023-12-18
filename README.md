@@ -36,7 +36,7 @@ pip install -r requirements.txt
 
 Or you can install it with docker :
 ```bash
-docker build -t efrei-simple-chatbot .
+docker build -t efrei-simple-chatbot . && docker run efrei-simple-chatbot
 ```
 
 You can modify the settings of the chatbot in the `settings.py` file.
