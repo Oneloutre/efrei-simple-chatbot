@@ -9,6 +9,9 @@
 
 This project is a simple chatbot made in python for an Efrei project. It is based on a simple GUI in the CLI and a simple chatbot engine made by us.
 
+# :warning: **YOU ARE ON THE BETA BRANCH !** :warning:
+
+
 <u>Here is what it can do for now :</u>
 
 - [x] Display the list of the least important words in the corpus of documents.
@@ -18,6 +21,7 @@ This project is a simple chatbot made in python for an Efrei project. It is base
 - [x] Identify the first president to discuss climate and/or ecology.
 - [x] Excluding words labeled as "non-important," what word(s) have all presidents mentioned.
 - [x] Get an answer from a question asked by the user.
+- [ ] Get a meaningful answer from a question asked by the user **Using OpenAi**
 
 ### Table of contents :bookmark_tabs:
 

@@ -1,4 +1,5 @@
 from utils.text_process import *
+from ChatGpt.gpt import Gpt_Handler as handler
 
 
 president_folder_name, the_cleaned_folder_name, president_folder_directory, the_cleaned_folder_directory = program_settings()
@@ -222,6 +223,14 @@ def chatbot_handler():
 
     if sim == 0:
         print("Sorry but there was an error finding an answer, maybe try being more specific?")
+        gpt = input(("Do you want a meaningful answer anyway ? (y/n)"))
+        if gpt == "y":
+            reponse = handler(question)
+            print(reponse)
+        if gpt == "n":
+            print("Ok, see you soon!")
+        else:
+            print("Please enter a valid answer.")
 
     else:
         the_word = word_in_most_similar_doc(qst_tf_idf, sim, docs_for_question)
