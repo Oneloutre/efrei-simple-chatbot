@@ -5,7 +5,7 @@ import useless_robots.useless_robot_selector as useless
 
 def launch():
 
-    print(useless.useless_robot_selector())
+
     print("\n========================== { Welcome to the Chatbot ! } ==========================")
     print("Menu :\n1. Display the list of least important words. \n2. Display the word(s) with the highest TF-IDF score. \n3. Identify the word(s) most frequently repeated by President Chirac.\n4. Identify the name(s) of the president(s) who have spoken about the 'Nation' and the one who has repeated it the most times.\n5. Identify the first president to discuss climate and/or ecology.\n6. Excluding words labeled as 'non-important', what word(s) have all presidents mentioned.\n7. Launch Chatbot.\n\n8. Exit")
     choice = int(input())
@@ -39,5 +39,7 @@ def launch():
 
 
 if __name__ == "__main__":
+
     process.launch_text_process()
+    print(useless.useless_robot_selector())
     launch()
